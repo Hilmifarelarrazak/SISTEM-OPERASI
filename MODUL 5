@@ -1,1 +1,121 @@
+1.	Konfigurasi (mengatur) jaringan VirtualBox menggunakan NAT (Networl Address Translation) buka Settings (pengaturan) lalu pilih tab Network (jaringan). Attached to diatur ke NAT setelah itu tekan "ok”.
+
+2.  Menganalisis Konektivitas Jaringan NAT dengan Perintah ip a dan ping 
+    Ketik ip a untuk lihat alamat IP di bagian 2: enp0s3: inet 10.0.2.15/24 
+    Ketik ping 8.8.8.8 untuk memastikan sistem terhubung ke internet dan dapat menjangkau jaringan luar.
+
+3.	Menggunakan Bridged Adapter kembali ke pengaturan Network, ubah Attached to menjadi Bridged Adapter setelah itu tekan "ok”.
+
+4.	Jaringan Bridged Adapter Ketik ip a untuk lihat alamat IP di bagian 2: enp0s3: inet 172.16.77.131/24 Ketik ping 8.8.8.8 untuk memastikan sistem terhubung ke internet dan dapat menjangkau jaringan luar.
+
+5.	Menggunakan Host-Only Adapter kembali ke pengaturan Network, ubah Attached to menjadi Host-Only Adapter setelah itu tekan "ok”.
+
+6.	Jaringan Host-Only Adapter Ketik ip a untuk lihat alamat IP di bagian 1 inet 127.0.0.1/8 ketik ping  127.0.0.1 untuk memastikan sistem terhubung ke internet dan dapat menjangkau jaringan luar.
+
+7.	Perintah sudo apt install openssh-server ini digunakan untuk menginstal OpenSSH Server, yaitu sebuah perangkat lunak yang memungkinkan sistem Anda menerima koneksi SSH (Secure Shell). Ini berguna untuk mengakses komputer secara jarak jauh dengan aman.
+
+8.	Jika sudah diinstall, aktifkan dengan sudo systemctl enable ssh perintah ini memastikan bahwa layanan SSH akan otomatis berjalan saat komputer dinyalakan (booting). 
+
+9.	sudo systemctl start ssh perintah ini memulai layanan SSH secara langsung, sehingga server ini kini siap menerima koneksi SSH.
+
+10.	sudo ufw enable perintah ini untuk mengaktifkan UFW (Uncomplicated Firewall).
+    Pesan: “Firewall is active and enabled on system startup” menandakan firewall kini aktif dan akan otomatis menyala setiap kali sistem dinyalakan.
+    sudo ufw allow 22 mengizinkan koneksi ke port 22, yaitu port standar untuk layanan SSH. Sistem mendeteksi bahwa aturan ini sudah ada (baik untuk IPv4 maupun IPv6), sehingga muncul pesan “Skipping adding existing rule”.
+
+11.	sudo ufw status menampilkan status firewall saat ini.
+    Ini berarti koneksi ke port 22 diperbolehkan dari semua alamat IP, baik IPv4 maupun IPv6.
+
+12.	Ketik perintah ssh vboxuser@192.168.116.83 untuk melakukan koneksi SSH
+    vboxuser adalah nama pengguna (username) di sistem tujuan.
+    Anda diminta memasukkan password, dan setelah itu berhasil masuk ke sistem tujuan.
+    Bukti keberhasilan: prompt berubah menjadi vboxuser@ubuntu:~$.
+    Informasi tambahan setelah login:
+    Menampilkan versi Ubuntu: Ubuntu 20.04.2 LTS
+    Menyebutkan bahwa ada pembaruan keamanan tambahan yang bisa diaktifkan dengan pro.
+    Tercatat login terakhir: Wed May 14 07:17:36 2025 from 192.168.116.103 (alamat IP dari client yang mengakses).
+
+13.	echo "hai Ilan" > file.txt Perintah ini membuat file bernama file.txt di lokal (komputer Anda sekarang), dan isinya adalah hai Ilan.
+
+14.	scp file.txt vboxuser@192.168.116.83:/home/vboxuser/ Perintah ini mengirim file file.txt ke server dengan IP 192.168.116.83, dan menyimpannya di direktori /home/vboxuser/.
+    Anda diminta memasukkan password vboxuser, dan setelah berhasil, file berhasil dikirim.
+    Terlihat keterangan 100% dan file.txt berhasil ditransfer.
+    Tidak ada error, artinya proses SCP sukses.
+
+15.	Teman saya masuk ke server dengan IP 192.168.116.103 menggunakan user hilmifarelarrazak.
+    Saat pertama kali koneksi, muncul pertanyaan “Are you sure you want to continue connecting?”. Anda menjawab yes untuk menambahkan server ke daftar known_hosts.
+    Anda berhasil login ke server Ubuntu 24.04.
+
+16.	Perintah ls (list):
+    Menampilkan isi direktori home (~) Anda. Terlihat ada file file.txt, hasil.txt, halo.sh, dan skrip lainnya.
+
+17.	cat /home/hilmifarelarrazak/file.txt Perintah ini digunakan untuk menampilkan isi file file.txt.
+  	Output-nya adalah: hai lian
+
+18.	sudo adduser paii perintah ini digunakan untuk membuat user baru dengan nama paii menggunakan perintah adduser, yang juga otomatis membuat:
+    Direktori home di /home/paii
+    Grup dengan nama yang sama (paii)
+    Menyalin file default dari /etc/skel ke home user baru
+    Membuat New Password:
+    Anda diminta mengisi informasi seperti Full Name, Room Number, dll — semuanya dikosongkan (default).
+    Setelah itu, Anda menyetujui bahwa informasi sudah benar dengan mengetik y.
+    User Ditambahkan ke Grup Tambahan:
+    User paii juga otomatis ditambahkan ke grup users, selain grup default pail.
+
+19.	sudo addgroup tanakbeak perintah ini membuat grup baru bernama tanakbeak.
+    Sistem memberikan GID (Group ID) otomatis, dalam hal ini 1004.
+
+20.	sudo usermod -aG tanakbeak pai perintah ini menambahkan user bernama pail ke dalam grup tanakbeak.
+    Opsi -aG berarti:
+    a (append): menambahkan ke grup tambahan
+    G (groups): diikuti daftar grup target
+
+21.	groups pail 
+    Output: pai : pai users tabek tanakbeak
+    Artinya, user pail sekarang termasuk dalam grup:
+    pai (grup utamanya)
+    users, tabek, dan tanakbeak (grup tambahan)
+
+22.	sudo chown pai:tanakbeak file.txt 
+  	sudo untuk menjalankan perintah sebagai superuser (dibutuhkan untuk mengubah pemilik file yang bukan milik sendiri).
+  	chown: Perintah untuk mengubah kepemilikan file.
+    pai:tanakbeak: Menetapkan user pai sebagai pemilik file, dan grup tanakbeak sebagai grup file.
+    file.txt: Nama file yang dimodifikasi kepemilikannya.
+
+23.	ls -l printah untuk menampilkan informasi detail semua file dan folder. Untuk file file.txt, 
+    hasilnya adalah: -rw-rw-r-- 1 pai tanakbeak
+    Artinya:
+    Pemilik file adalah pai
+    Grup pemilik file adalah tanakbeak
+    Izin file:
+    rw- untuk pemilik (pai) → boleh membaca & menulis
+    rw- untuk grup (tanakbeak) → boleh membaca & menulis
+    r-- untuk lainnya → hanya boleh membaca
+
+24.	sudo chmod 750 file.txt 
+    chmod digunakan untuk mengubah permission (izin akses) file.
+	  750 berarti:
+		Pemilik (owner): 7 → baca (r), tulis (w), dan eksekusi (x)
+		Grup: 5 → baca (r) dan eksekusi (x)
+		Lainnya (others): 0 → tidak ada izin
+		File yang diubah adalah file.txt
+
+25.	ls -l perintah untuk menampilkan daftar file dan direktori beserta detailnya (long listing).
+      1.	Hasilnya menunjukkan atribut file seperti:
+      2.	Tipe dan permission
+      3.	Jumlah link
+      4.	Pemilik (owner)
+      5.	Grup
+      6.	Ukuran (dalam byte)
+      7.	Tanggal terakhir dimodifikasi
+      8.	Nama file
+      9.	-rwxr-x--- 1 hilmifarelarrazak hilmifarelarrazak 142 May 14 14:42 file.txt
+
+26. -rwxr-x--- → permission sesuai 750:
+      1.	Pemilik bisa baca, tulis, eksekusi
+      2.	Grup bisa baca dan eksekusi
+      3.	Others tidak punya akses
+      4.	Ukuran file: 142 byte
+      5.	Pemilik dan grup: hilmifarelarrazak
+      6.	Terakhir dimodifikasi: 14 Mei pukul 14:42
+
 

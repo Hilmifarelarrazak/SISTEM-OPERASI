@@ -1,0 +1,195 @@
+D.	Implementasi
+
+ 
+sudo apt update Perintah ini digunakan untuk memperbarui daftar paket dari repositori Ubuntu, apt update ini akan mengecek ke toko (server repositori) apakah ada versi terbaru dari software-software itu tapi dia belum menginstal apa pun, hanya memperbarui daftar versi terbaru saja Tujuannya: agar sistem tahu kalau ada versi baru dari aplikasi atau pustaka yang kamu gunakan.
+
+
+ 
+sudo apt upgrade Perintah ini digunakan untuk menginstal versi terbaru dari semua paket yang sudah terpasang di sistem kamu (jika tersedia versi barunya). Paket lama diganti dengan yang baru,
+data dan pengaturan biasanya tetap aman.
+
+
+ 
+sudo apt install apt-transport-https ca-certificates curl software-properties-common Perintah ini digunakan untuk menginstal beberapa paket penting yang sering dibutuhkan saat menambahkan repositori eksternal atau mengakses data melalui HTTPS.
+Perintah ini dipakai untuk menyiapkan sistem agar bisa menambahkan repositori aman dan mengunduh data dari internet dengan aman.
+
+ 
+sudo usermod -aG docker hilmifarelarrazak
+Menambahkan user hilmifarelarrazak ke grup docker.
+Ini agar user bisa menjalankan perintah Docker tanpa sudo.
+-aG
+ -a = append (tambahkan), -G = group (ke grup mana).
+mkdir docker perintah untuk Membuat direktori/folder bernama docker di direktori saat ini.
+
+
+ 
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+perintah ini untuk menambahkan repository resmi Docker ke sistem Ubuntu agar bisa menginstal Docker dari sana.
+deb [arch=amd64] ... menentukan arsitektur (64-bit) dan URL sumber paket (https://download.docker.com/linux/ubuntu). focal stable
+"focal" adalah nama kode Ubuntu 20.04, "stable" berarti versi stabil Docker.
+
+ 
+
+sudo apt install docker-ce  perintah ini digunakan untuk menginstal Docker Community Edition (CE) pada sistem berbasis Ubuntu.
+Penjelasan detail:
+Sudo menjalankan perintah sebagai administrator (root).
+apt install docker-ce  menginstruksikan  sistem  untuk  menginstal paket docker-ce (Community Edition) beserta semua dependensinya.
+
+ 
+sudo systemctl enable docker Mengaktifkan Docker agar otomatis berjalan saat sistem booting.
+sudo systemctl start docker Menjalankan service Docker secara langsung.
+sudo systemctl status docker Menampilkan status dari service Docker.
+
+
+Membuat folder docker, masuk ke dalamnya, dan membuat file app.py.
+
+
+ 
+Gambar ini menunjukkan bahwa sedang membuat file Python bernama app.py menggunakan editor nano, dan isi dari skrip tersebut adalah program sederhana untuk menampilkan grafik sinusoidal menggunakan Matplotlib dan NumPy.
+
+ 
+
+Membuat folder docker, masuk ke dalamnya, dan membuat file Doker
+
+
+ 
+Gambar ini menunjukkan bahwa :
+Menggunakan python:3.12
+Menyalin file
+Menjalankan pip install
+Menjalankan script app.py
+
+ 
+
+Membuat folder docker, masuk ke dalamnya, dan membuat file requirements.txt
+
+
+ 
+
+numpy akan digunakan untuk membuat data numerik (misalnya nilai x dan y).
+matplotlib untuk membuat grafik (misalnya grafik sinus).
+
+ 
+
+cd docker lalu ls perintah ini masuk ke folder docker dan menampilkan isinya yaitu app.py  Docker  requirements.txt
+app.py → file Python utama
+Docker → ini perlu diubah namanya menjadi Dockerfile supaya Docker bisa membacanya saat build
+requirements.txt → daftar dependencies
+
+xhost +local:docker Perintah ini menambahkan izin ke sistem X11 untuk menerima koneksi dari Docker container yang berjalan di mesin lokal ini berguna jika kamu ingin menampilkan grafik GUI (seperti plt.show()).
+
+
+docker run -it: Menjalankan container dalam mode interaktif dengan terminal (-i untuk input, -t untuk terminal).
+--name farel-py: Memberi nama container tersebut dengan nama farel-py.
+-e DISPLAY=$DISPLAY: Mengatur environment variable DISPLAY agar aplikasi GUI yang berjalan di container dapat ditampilkan di layar host.
+-v /tmp/.X11-unix:/tmp/.X11-unix: Mount direktori socket X11 agar container bisa berkomunikasi dengan sistem X Window dari host (dibutuhkan untuk aplikasi GUI).
+python:3.12 bash: Menentukan image python:3.12 dan perintah bash agar kamu masuk ke shell terminal di dalam container.
+
+
+pip install numpy matplotlib
+pip install: Perintah ini digunakan untuk mengunduh dan menginstal pustaka Python dari Python Package Index (PyPI).
+numpy dan matplotlib: Ini adalah dua pustaka populer Python:
+1.	numpy: Digunakan untuk komputasi numerik dan array multidimensi.
+2.	matplotlib: Digunakan untuk membuat grafik dan visualisasi data.
+
+ 
+docker exec -it farel-py bash
+Artinya: Menjalankan interactive shell (bash) dalam container Docker yang bernama farel-py.
+
+import numpy as np
+numpy digunakan untuk komputasi array.
+
+import matplotlib.pyplot as plt
+matplotlib.pyplot digunakan untuk membuat grafik.
+
+x = np.linspace(0, 10, 100)
+np.linspace(0, 10, 100): Membuat 100 nilai antara 0 sampai 10 secara merata.
+
+y = np.sin(x)
+np.sin(x): Menghitung nilai sinus untuk semua nilai x.
+plt.plot(x, y)
+Membuat grafik garis antara nilai x dan y.
+
+plt.savefig("Grafik_Sinus.png")
+Menyimpan grafik dalam file PNG.
+
+plt.show()
+Memunculkan jendela visualisasi grafik (bisa muncul karena xhost +local:docker sudah dilakukan sebelumnya).
+
+ 
+mkdir virtualenv
+mkdir adalah singkatan dari "make directory".
+Perintah ini membuat folder baru bernama virtualenv.
+Tujuannya adalah menyiapkan tempat khusus untuk menyimpan lingkungan virtual Python atau proyek Python terpisah dari sistem utama.
+cd virtualenv
+cd adalah singkatan dari "change directory". Perintah ini masuk ke dalam folder virtualenv yang baru saja dibuat.
+Setelah perintah ini dijalankan, terminal sekarang berada di dalam direktori ~/virtualenv.
+ 
+python3 -m venv env
+Ini adalah perintah untuk membuat virtual environment bernama env menggunakan modul venv.
+python3: menjalankan Python versi 3.
+-m venv: memanggil modul venv bawaan Python untuk membuat virtual environment.
+env: nama folder/direktori tempat environment tersebut akan dibuat.
+
+ls Perintah ini digunakan untuk menampilkan isi dari direktori saat ini (~/virtualenv).
+Hasilnya: hanya ada satu folder bernama env, yaitu hasil dari perintah sebelumnya.
+
+ 
+source env/bin/activate
+source: digunakan untuk menjalankan script dalam shell saat ini.
+
+env/bin/activate: script aktivasi dari virtual environment yang kamu buat sebelumnya (lokasinya di dalam folder env → bin → activate).
+ 
+
+pip install numpy matplotlib
+pip: package installer untuk Python.
+
+install: perintah untuk memasang (install) paket.
+
+numpy dan matplotlib: dua pustaka populer untuk komputasi ilmiah dan visualisasi data di Python.
+
+ 
+xhost +local:virtualenv
+xhost: alat untuk mengelola akses ke X server (layar/GUI).
+
++local:virtualenv: memberikan izin akses ke X server untuk klien lokal bernama virtualenv.
+local:: berarti klien berjalan di komputer lokal (bukan jaringan).
+
+virtualenv: dalam konteks ini bisa merujuk ke nama user/sesi atau lingkungan tertentu (walaupun virtualenv sebenarnya lebih dikenal sebagai nama folder/env Python).
+
+xhost
+ Output:
+access control enabled, only authorized clients can connect
+LOCAL:
+Artinya: Kontrol akses aktif.
+
+Hanya klien yang secara eksplisit diberi izin (seperti local:virtualenv) yang dapat menggunakan tampilan X server.
+
+
+ 
+python
+Menjalankan Python 3.12.3 dari dalam virtual environment ((env)), artinya semua pustaka Python yang digunakan berasal dari lingkungan virtual ini.
+import numpy as np
+numpy digunakan untuk membuat array dan fungsi matematika.
+
+import matplotlib.pyplot as plt
+matplotlib.pyplot untuk membuat grafik.
+
+x = np.linspace(0, 10, 100)
+x: 100 nilai dari 0 sampai 10.
+
+y = np.sin(x)
+y: nilai sinus dari x.
+plt.plot(x, y)
+plt.plot(x, y): membuat grafik garis sinusoidal.
+
+plt.savefig("Grafik_Sinus.png")
+plt.savefig(...): menyimpan grafik sebagai gambar .png.
+
+plt.show()
+plt.show(): menampilkan jendela grafik (GUI) menggunakan X11.
+
+
+deactivate Perintah ini digunakan untuk:
+Keluar dari lingkungan Python virtual.
+Mengembalikan penggunaan Python dan pip ke versi sistem (bukan lagi versi yang terisolasi di env).

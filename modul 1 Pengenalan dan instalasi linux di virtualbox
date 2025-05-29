@@ -1,0 +1,124 @@
+# -------------------------------------
+# 1. UPDATE & UPGRADE SISTEM LINUX
+# -------------------------------------
+
+# Buka terminal
+# Update daftar paket
+sudo apt update
+
+# Upgrade paket-paket yang sudah terinstal
+sudo apt upgrade -y
+
+# Upgrade penuh (bisa mengganti atau menghapus paket)
+sudo apt full-upgrade -y
+
+# Menghapus paket-paket tidak diperlukan
+sudo apt autoremove -y
+sudo apt clean
+
+# -------------------------------------
+# 2. PENGATURAN UPDATE OTOMATIS
+# -------------------------------------
+
+# Edit file konfigurasi untuk update otomatis
+sudo nano /etc/apt/apt.conf.d/20auto-upgrades
+
+# (Isi file tersebut dengan pengaturan auto update yang diinginkan)
+
+# -------------------------------------
+# 3. INSTALASI PIP
+# -------------------------------------
+
+# Mengecek versi Python 3
+python3 --version
+
+# Instal pip untuk Python 3
+sudo apt install python3-pip -y
+
+# Mengecek versi pip3
+pip3 --version
+
+# -------------------------------------
+# 4. PENGGUNAAN PIP3
+# -------------------------------------
+
+# Menginstal pustaka numpy
+pip3 install numpy
+
+# Melihat daftar pustaka yang terinstal
+pip list
+
+# Mengupdate pustaka pandas
+pip install --upgrade pandas
+
+# Menghapus pustaka matplotlib
+pip3 uninstall matplotlib
+
+# -------------------------------------
+# 5. PERINTAH DASAR TERMINAL LINUX
+# -------------------------------------
+
+# Menampilkan isi direktori
+ls
+
+# Berpindah direktori
+cd nama_folder
+
+# Menyalin file atau folder
+cp sumber tujuan
+
+# Memindahkan atau mengganti nama
+mv sumber tujuan
+
+# Menghapus file
+rm nama_file
+
+# Menampilkan isi file
+cat nama_file
+
+# Mencari teks dalam file
+grep "teks" nama_file
+
+# -------------------------------------
+# 6. TAMBAH/HAPUS FILE DAN DIREKTORI
+# -------------------------------------
+
+# Membuat file
+touch nama_file
+
+# Membuat folder
+mkdir nama_folder
+
+# Menghapus file
+rm nama_file
+
+# Menghapus folder kosong
+rmdir nama_folder
+
+# Menghapus folder dan isinya
+rm -r nama_folder
+
+# -------------------------------------
+# 7. HAK AKSES FILE & DIREKTORI
+# -------------------------------------
+
+# Melihat hak akses file
+ls -l
+
+# Ubah hak akses menggunakan chmod
+
+# Memberikan semua izin kepada pemilik file
+chmod 700 nama_file
+
+# Memberikan izin baca dan tulis ke semua pengguna
+chmod 666 nama_file
+
+# Ubah kepemilikan file (chown)
+sudo chown user1:group1 nama_file
+
+# Melihat nilai umask saat ini
+umask
+
+# Mengatur umask default
+umask 022
+umask 002

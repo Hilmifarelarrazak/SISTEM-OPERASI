@@ -1,0 +1,171 @@
+a)	Manajemen Proses
+Proses adalah program yang sedang dijalankan oleh komputer, seperti aplikasi atau perintah di terminal. Manajemen proses bertugas memastikan proses berjalan lancar dan efisien dengan memanfaatkan sumber daya seperti CPU, core, dan thread, serta mengatur penjadwalan proses. Selain itu, manajemen proses juga mengelola komunikasi antar proses, mencegah deadlock, dan memastikan sumber daya dibersihkan setelah proses selesai untuk menghindari kebocoran memori atau file, sehingga kinerja sistem tetap optimal dan responsif.
+State proses menggambarkan tahapan yang dilalui oleh sebuah proses dalam sistem. Dimulai dengan New, di mana proses baru dibuat. Kemudian, proses masuk ke Ready, yaitu saat proses menunggu giliran untuk dieksekusi oleh CPU. Setelah itu, proses masuk ke status Running, di mana proses sedang dieksekusi oleh CPU. Jika proses membutuhkan operasi I/O atau menunggu suatu event, proses akan berada dalam status Waiting. Terakhir, ketika proses selesai atau dihentikan, statusnya berubah menjadi Terminated.
+
+1)	Prosesor(CPU)
+Processor atau CPU (Central Processing Unit) adalah otak dari komputer yang bertugas mengeksekusi perintah dari sistem operasi dan aplikasi.
+2)	Core
+Core adalah unit pemrosesan di dalam CPU. Satu CPU bisa punya beberapa core, misalnya dual-core (2 core), quad-core (4 core), dan seterusnya. Makin banyak core, makin banyak tugas yang bisa dijalankan secara bersamaan.
+3)	Threads
+Threads adalah aliran tugas yang diproses oleh core. Satu core bisa memproses beberapa thread dalam satu waktu (disebut Hyper-Threading di Intel atau SMT di AMD).
+
+b. Manajemen Penyimpanan
+Manajemen Penyimpanan adalah proses yang dilakukan oleh sistem operasi untuk mengelola dan mengatur penyimpanan data di berbagai jenis media penyimpanan, baik itu memori utama (RAM), memori sekunder (seperti hard disk atau SSD), maupun memori non-volatile (seperti ROM). Tugas utama manajemen penyimpanan meliputi alokasi ruang penyimpanan untuk data dan program, pengorganisasian data dalam bentuk file atau direktori, serta pengelolaan akses dan pemeliharaan data agar dapat diambil dengan efisien dan aman. Fungsi utama manajemen penyimpanan meliputi mengatur file, yang menentukan cara data disimpan, dibaca, dan dihapus; alokasi ruang, yang membagi penyimpanan sesuai dengan kebutuhan aplikasi atau pengguna; dan proteksi data, yang mengatur hak akses agar file tetap aman dari akses yang tidak sah. Selain itu, manajemen penyimpanan juga mencakup manajemen direktori, pengorganisasian struktur file, serta penanganan fragmentasi, yang dapat mempengaruhi kinerja sistem penyimpanan. Semua ini bertujuan untuk memastikan keberlanjutan, integritas, dan efisiensi penyimpanan data dalam sistem komputer.
+
+1.	RAM (Random Access Memory)
+RAM adalah memori utama yang menyimpan data dan instruksi saat komputer berjalan, bersifat volatile (hilang saat dimatikan), serta semakin besar kapasitasnya, semakin banyak aplikasi yang bisa berjalan tanpa lag.
+2.	ROM (Read-Only Memory)
+ROM adalah memori hanya-baca yang menyimpan firmware atau instruksi dasar sistem, tidak hilang saat komputer dimatikan, seperti BIOS yang memuat instruksi awal saat booting.
+3.	Cache Memory
+Cache adalah memori kecil dan cepat di dalam atau dekat prosesor yang menyimpan data sering diakses untuk mempercepat sistem, terdiri dari L1 (paling cepat, kecil), L2, dan L3 (lebih besar, lebih lambat).
+4.	Swap Memory pada Ubuntu
+Swap adalah ruang di hard disk atau SSD yang digunakan sebagai perpanjangan RAM saat penuh, mirip paging file di Windows. Ubuntu otomatis mengaktifkannya untuk mencegah crash, tetapi Swap lebih lambat dibandingkan RAM.
+
+
+
+1.	Langkah – langkah cek hard di windows
+a.	klik windows + E
+
+
+b.	Kemudia klik kanan pada “This pc” 
+ 
+
+c.	Lalu pilih “properties” 
+ 
+
+d.	Kemudian kita akan melihat hard dick lewat windows
+
+	1. Cara mengecek memori di Ubuntu ketik : free -h	 
+
+
+2.	Cara melihat RAM secara real-time: htop
+
+
+
+3.	Cara melihat detail memori, ketik: cat/proc/meminfo
+
+
+
+4.	Cara melihat penggunaan memori secara umum di Ubuntu, ketik vmstat -s
+
+
+Perintah ini bakal nampilin statistik lengkap tentang memori, seperti: Total memori
+o	Memori bebas (free memory)
+o	Memori yang dipakai (used memory)
+o	Cache & buffer memory
+o	Penggunaan swap
+
+5.	Cara untuk melihat proses yang paling banyak makan memory, 
+Ketik: ps aux –sort=-%mem I head
+a. ps aux → Menampilkan daftar semua proses yang berjalan. 
+b. --sort=-%mem → Mengurutkan proses berdasarkan penggunaan memori        tertinggi. 
+c. head → Menampilkan 10 proses teratas saja (agar tidak terlalu panjang).
+
+
+b)	Status Proses (Process States)
+Sebuah proses melewati berbagai status selama siklus hidupnya. Status-status tersebut antara lain:
+
+•	Running: CPU sedang mengeksekusi kode dalam proses ini.
+•	Sleep (Suspended): CPU sedang mengeksekusi proses lain, sehingga proses ini ditangguhkan sementara.
+•	Destroyed: Proses telah selesai dan menunggu untuk dihancurkan sepenuhnya.
+c)	procfs
+procfs adalah sistem file dalam Linux yang digunakan untuk mengakses informasi tentang proses yang sedang berjalan.
+
+d)	Thread
+Thread adalah unit kerja dalam suatu proses yang berbagi lingkungan eksekusi. Ketika sebuah proses dibuat, ia memiliki lingkungan eksekusi sendiri dengan kode yang dimilikinya.
+Daripada membuat struktur proses baru dalam memori, sistem operasi memungkinkan sebuah thread menggunakan beberapa sumber daya dari proses induk yang membuatnya. Setiap thread memiliki register sendiri, program counter, stack pointer, dan stack panggilannya sendiri. Namun, semua thread dalam satu proses berbagi sumber daya seperti ruang alamat, heap, data statis, segmen kode, serta file descriptor.
+Karena thread hanya menggunakan sumber daya yang sudah ada dan tidak memerlukan context switching, proses pembuatan dan peralihan antar-thread jauh lebih cepat dibandingkan proses penuh.
+Namun, skema ini hanyalah salah satu implementasi dari konsep thread. Secara teori, Anda bisa memperlakukan thread sama seperti proses, atau hanya menyimpan beberapa sumber daya sementara yang lainnya dibagikan. Desain mengenai thread dan proses sepenuhnya bergantung pada keputusan desainer sistem operasi. Dalam banyak sistem, thread biasanya dianggap sebagai bagian dari proses.
+
+•	Di Linux, sebuah thread hanyalah sebuah proses yang berbagi sumber daya dengan proses induknya. Oleh karena itu, thread di Linux juga disebut proses ringan (lightweight process). Sebuah program multi-threaded di Linux pada dasarnya adalah sebuah proses dengan beberapa proses anak (child processes) yang berbagi sumber daya dan memiliki akses ke bagian kode yang berbeda.
+•	Di Windows, thread dan proses adalah dua entitas yang terpisah, sehingga konsep thread di Linux tidak berlaku. Namun, secara umum, thread tetap berbagi lingkungan eksekusi dalam sistem operasi Windows
+
+6.	Manajemen Memori
+a)	Ruang Alamat (Address Space)
+Ruang alamat adalah sekumpulan semua lokasi memori yang dapat diakses. Dalam memori fisik, terdapat dua jenis ruang alamat:
+•	Satu untuk memori
+•	Satu untuk I/O
+Setiap proses memiliki ruang alamatnya sendiri untuk digunakan sesuai kebutuhan, selama memori fisik belum habis. Ruang alamat ini disebut memori virtual.
+
+b)	Memori Virtual (Virtual Memory)
+Memori fisik terdiri dari lokasi-lokasi memori yang berurutan dengan pemetaan sederhana antara alamat memori fisik dan lokasinya yang sesuai di dalam memori, yang diterjemahkan oleh pengendali memori (memory controller).
+Di sisi lain, memori virtual tidak memiliki pemetaan langsung antara alamat memori virtual dan lokasi memori fisik yang sesuai, meskipun dari sudut pandang program yang berjalan di user space, memori virtual tampak berurutan. Sebaliknya, alamat memori virtual diterjemahkan oleh sistem operasi menjadi alamat memori fisik yang sebenarnya. Oleh karena itu, meskipun alamat dalam ruang memori virtual terlihat berdekatan, sebenarnya alamat tersebut tersebar di seluruh memori fisik.
+Mengapa Memori Virtual Diperlukan?
+Memori virtual mengurangi kompleksitas pemrograman dengan memberikan ilusi kepada setiap program seolah-olah mereka memiliki memori fisik terpisah untuk digunakan. Tanpa memori virtual, program harus mengetahui dan menyepakati batasan wilayah memorinya masing-masing agar tidak saling menimpa atau merusak data satu sama lain.
+(Ilustrasi dunia tanpa memori virtual)
+Selain itu, memori virtual meningkatkan keamanan sistem operasi karena program aplikasi tidak dapat langsung memanipulasi memori utama. Dengan begitu, program berbahaya tidak dapat dengan mudah merusak memori utama atau bahkan perangkat keras dengan mengakses port I/O secara langsung.
+Keuntungan lainnya adalah memori virtual dapat diperluas melampaui batas memori fisik dengan menyimpan data ke dalam hard disk. Dengan cara swapping, sistem dapat memindahkan bagian memori yang tidak digunakan (misalnya, memori proses yang sedang dalam keadaan tidur) ke penyimpanan sekunder sehingga memperoleh ruang memori tambahan untuk menjalankan tugas lainnya tanpa kehilangan data.
+Tanpa mekanisme ini, sistem operasi akan terpaksa menghentikan secara paksa salah satu proses pengguna secara acak untuk membebaskan memori, yang bisa menyebabkan hilangnya pekerjaan yang belum disimpan. Namun, proses swapping ini dapat secara signifikan memperlambat kinerja sistem secara keseluruhan karena keterbatasan arsitektur Von Neumann.
+
+
+
+D.	Implementasi
+	1. Cara mengetahui detail prosesor dan memori di windows
+a)Windows + R lalu ketik dxdiag
+	 
+
+b)Lalu tekan ctrl +shift + Esc Untuk membuka task manager
+	
+	 
+c)Klik tab: performance, lalu pilih cpu untuk melihat detail prosesor
+	 
+	
+
+2.	Mengetahui detail prosesor dan memori di Ubuntu
+
+a)Untuk melihat ram dan swap memori, ketik, free -h
+	 
+
+b)Untuk melihat penggunaan ram secara real time, ketik htop
+	 
+
+c)Untuk melihat detail memori, ketik cat /proc/meminfo
+	 
+
+	 3.  Mengetahui detail prosesor dan memori di Ubuntu
+a)Untuk melihat informasi dasar prosesor, ketik cat /proc/cpuinfo (perintah ini akan menampilkan detail seperti model cpu, jumlah core dan kecepatan prosesor
+	 
+
+b)Untuk melihat jumlah core dan thread dengan lebih ringkas, ketik lscpu (perintah ini akan menampilkan info cpu dalam format yg lebih mudah dibaca)
+	 
+
+c)Untuk melihat penggunaan swap, ketik swapon --summary (Kalau swap aktif perintah ini akan menampilkan ukuran dan statusnya)
+	 
+
+
+4. Melihat penggunaan memori secara umum di ubuntu
+a)Untuk mengecek detail penggunaan memori, ketik vmstat -s 
+	 
+
+b)Untuk melihat proses yang paling banyak memakan memori, ketik: ps aux --sort=-%mem | head
+	 
+
+
+
+
+5. untuk melihat informasi pengguna dan mengelola sistem
+	a. Perintah ini digunakan untuk menampilkan nama pengguna (username) yang sedang login di sistem, ketik: whoami
+		
+		
+	b. Untuk mengontrol siapa saja yang bisa mengakses file (pemilik, grup, atau semua orang) memberikan atau mencabut izin rwx( mmbaca, menulis, mengeksekusi) sebuah file, ketik: chmod
+	
+		
+
+
+
+a.  untuk me-reboot (merestart) sistem komputer menggunakan sudo, membutuhkan hak akses administrator untuk melakukannya. Ketik: sudo reboot
+		
+
+
+
+b. untuk mematikan (shutdown) sistem setelah 1 menit.  Ketik: sudo -h +1 (menitnya bisa disesuaikan)
+		
+	
+	
+c.  Untuk membatalkan perintah shutdown, ketik: shutdown -cl (perintah menshotdown auto batal)
+		
+	
+
+d. untuk merestart sistem (reboot) langsung (segera), ketik: sudo shutdown 
+		-r now. Maka akan
+

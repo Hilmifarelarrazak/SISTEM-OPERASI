@@ -1,0 +1,123 @@
+Perintah mkdir Modul4 digunakan untuk membuat direktori/folder baru dengan nama Modul4 di dalam direktori home (~).
+Perintah ls digunakan untuk menampilkan daftar isi dari direktori saat ini (dalam hal ini direktori home)
+Perintah cd Modul4 digunakan untuk berpindah (change directory) ke direktori Modul4 yang baru saja dibuat.
+~/Modul4$  Ini adalah prompt terminal yang menunjukkan bahwa saat ini pengguna berada di dalam direktori Modul4.
+
+                           
+Perintah touch file1.txt digunakan untuk membuat file kosong baru bernama file1.txt di dalam direktori Modul4.
+Perintah ls menampilkan isi direktori Modul4. Hasilnya menunjukkan bahwa file file1.txt berhasil dibuat.
+
+                                                
+Perintah mkdir folderbaru digunakan untuk membuat direktori baru bernama folderbaru di dalam Modul4.
+Perintah ini kembali menampilkan isi direktori Modul4. Sekarang terdapat dua item:
+1.) file1.txt (file teks yang dibuat sebelumnya)
+2.) folderbaru (folder yang baru saja dibuat)
+
+                           
+cp file1.txt folderbaru perintah ini menyalin file file1.txt ke dalam direktori folderbaru.
+Ls menampilkan isi direktori Modul4 yang saat ini berisi:
+1.) file1.txt (file asli)
+2.) folderbaru (folder tujuan salinan)
+cd folderbaru masuk ke dalam folder folderbaru.
+ls menampilkan isi dari folder folderbaru, dan terlihat bahwa file1.txt telah berhasil disalin ke dalamnya.
+
+                           
+touch filesampah.txt Membuat file kosong bernama filesampah.txt.
+ls menampilkan isi direktori Modul4, kini berisi:
+1.)	file1.txt
+2.)	folderbaru
+3.)	filesampah.txt
+mkdir foldersampah membuat folder baru bernama foldersampah.
+Ls sekarang isi direktori Modul4 bertambah dengan foldersampah.
+rm filesampah.txt menghapus file filesampah.txt.
+rmdir foldersampah menghapus direktori foldersampah. Catatan: perintah rmdir hanya bisa digunakan jika folder dalam keadaan kosong.
+Ls menampilkan isi direktori Modul4 setelah penghapusan, kini hanya tersisa file1.txt dan folderbaru.
+
+
+                          
+ls menampilkan isi direktori Modul4, yaitu:
+1.)	file1.txt
+	2.)  folderbaru
+mv file1.txt file2.txt perintah mv digunakan di sini untuk mengganti nama file file1.txt menjadi file2.txt.
+ls menampilkan isi direktori Modul4 setelah perubahan nama. Kini file1.txt sudah berubah menjadi file2.txt.
+
+                           
+mv file2.txt folderbaru perintah ini memindahkan file file2.txt ke dalam folder folderbaru.
+ls menampilkan isi direktori Modul4, kini hanya tersisa folderbaru karena file2.txt sudah dipindahkan.
+cd folderbaru masuk ke dalam folder folderbaru.
+ls menampilkan isi folder folderbaru, terdapat dua file:
+1.)	file1.txt (yang sebelumnya disalin)
+2.)	file2.txt (yang baru saja dipindahkan)
+
+
+ls menampilkan isi folder folderbaru: terdapat file1.txt dan file2.txt.
+mv file2.txt /home/hilnifarelrazzak/Modul4 memindahkan file2.txt dari folderbaru ke direktori Modul4 (direktori induk).
+Ls menampilkan ulang isi folder folderbaru setelah file file2.txt dipindahkan. Sekarang hanya tersisa file1.txt.
+cd .. berpindah ke direktori induk, yaitu dari Modul4/folderbaru ke Modul4.
+ls menampilkan isi direktori Modul4, kini terlihat file2.txt yang sudah dipindahkan, dan juga folderbaru.
+
+                            
+ls -l menampilkan detail file dan folder dalam format panjang (long listing), termasuk hak akses awalnya, filebaru memiliki izin: -rwxr--r--
+chmod u+x filebaru memberi hak akses eksekusi (x) untuk user (pemilik) file filebaru.
+ls -l mengecek kembali izin file, kini filebaru memiliki: -rwxr-xr-- (tanda x muncul untuk user dan group)
+chmod o+w filebaru memberi hak akses tulis (w) kepada others (pengguna lain).
+ls -l mengecek ulang izin file, sekarang menjadi -rwxr-xrw-.
+chmod ug-w filebaru menghapus hak akses tulis (w) dari user (pemilik).
+ls -l hasil akhir: -r-xr-xrw-
+
+
+ls -l menampilkan detail file dan folder di direktori Modul4, terlihat file filebaru dan folder folderbaru beserta hak aksesnya.
+chmod 755 filebaru mengatur hak akses filebaru menjadi:
+1.)	User: read (r), write (w), execute (x) → 7
+2.)	Group: read (r), execute (x) → 5
+3.)	Others: read (r), execute (x) → 5
+Hasil: -rwxr-xr-x
+ls -l menampilkan hasil perubahan izin file filebaru → -rwxr-xr-x
+chmod 000 filebaru menghapus semua izin (baca, tulis, eksekusi) untuk user, group, dan others.
+Hasil: ---------- → tidak ada yang bisa mengakses file ini.
+ls -l verifikasi bahwa filebaru sudah tidak memiliki izin apa pun.
+
+                            
+sudo adduser junadil menambahkan user baru bernama junadil karena perintah menggunakan sudo, sistem meminta password administrator.
+Password untuk hilmifarelrazzak dimasukkan
+Output sistem:
+1.)	Menyebutkan ID user (UID) dan group (GID) baru.
+2.)	Direktori home /home/junadil dibuat.
+3.)	File konfigurasi default dari /etc/skel disalin ke folder home user baru.
+Diminta memasukkan informasi opsional:
+Full name hilmi_farel, Room number, Work phone, Home phone, Othern diisi kosong dan langsung ditekan ENTER.
+Is the information correct? [Y/n] → Y
+Konfirmasi bahwa data benar.
+Output sistem terakhir:
+menambahkan junadil ke grup users.
+
+
+
+ls -l menampilkan detail file dan direktori. Terlihat filebaru dan folderbaru dimiliki oleh user hilnifarelrazzak.
+sudo chown junadil filebaru mengubah pemilik (owner) dari file filebaru menjadi user junadil , perintah sudo digunakan karena hanya superuser yang bisa mengubah kepemilikan file.
+ls -l verifikasi: filebaru kini dimiliki oleh user junadil, tapi group-nya masih hilnifarelrazzak.
+sudo chown junadil:junadil filebaru mengubah user dan group kepemilikan filebaru menjadi junadil , format chown user:group nama_file
+ls -l verifikasi bahwa filebaru sekarang dimiliki sepenuhnya oleh junadil (user dan group).
+                            
+cd .. pindah ke direktori induk dari Modul4, biasanya kembali ke home direktori user.
+ls -l menampilkan seluruh isi direktori home milik user hilnifarelrazzak secara detail:
+1.)	Direktori seperti Desktop, Documents, Downloads, dll.
+2.)	File seperti farel.sh, waktu.sh, test_cron.sh, dll.
+3.)	Tampak juga direktori Modul4 (yang sebelumnya digunakan).
+4.)	Simbol d di awal menandakan direktori.
+5.)	-rwxr-xr-x menandakan hak akses (read, write, execute).
+
+
+                             
+sudo chown -R junadil:junadil Modul4 
+perintah ini mengubah kepemilikan direktori Modul4 dan semua isinya (file & subdirektori) menjadi milik user junadil dan grup junadil.
+Opsi -R berarti rekursif,
+artinya semua file/direktori di dalam Modul4 ikut berubah kepemilikannya.
+ls -l menampilkan isi direktori home lengkap dengan detail file/direktori sekarang direktori Modul4 sudah dimiliki oleh user dan grup junadil.
+
+                             
+cd Modul4 masuk ke dalam direktori Modul4.
+ls -l menampilkan isi direktori Modul4 secara detail.
+	Terlihat bahwa:
+1.)	File filebaru dimiliki oleh junadil:junadil
+2.)	Direktori folderbaru juga dimiliki oleh junadil:junadil
